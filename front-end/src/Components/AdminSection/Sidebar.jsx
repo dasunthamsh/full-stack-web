@@ -12,7 +12,7 @@ const Sidebar = () => {
                     <Link to="/admin-dashboard">Dashboard</Link>
                 </li>
                 <li className="p-4 hover:bg-gray-700">
-                    <Link to="/products">Products</Link>
+                    <Link to="/products-table">Products</Link>
                 </li>
                 <li className="p-4 hover:bg-gray-700">
                     <Link to="/orders">Orders</Link>

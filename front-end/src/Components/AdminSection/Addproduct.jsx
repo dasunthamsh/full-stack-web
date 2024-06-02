@@ -1,38 +1,27 @@
+
+
 import React, { useState } from 'react';
+import axios from "axios";
 
 const AddProduct = () => {
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState('');
-    const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission
         const formData = new FormData();
         formData.append('productName', productName);
         formData.append('price', price);
-        formData.append('description', description);
         formData.append('image', image);
 
-        // Example of form data submission (to be replaced with your API endpoint)
-        fetch('/api/products', {
-            method: 'POST',
-            body: formData,
+        axios.post('http://localhost:3001/add-product', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-
-        // Reset form fields
-        setProductName('');
-        setPrice('');
-        setDescription('');
-        setImage(null);
+            .then(result => console.log(result))
+            .catch(err => console.log(err));
     };
 
     return (
@@ -56,14 +45,6 @@ const AddProduct = () => {
                         onChange={(e) => setPrice(e.target.value)}
                         className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                     />
-                </div>
-                <div>
-                    <label className="block text-gray-700">Description</label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    ></textarea>
                 </div>
                 <div>
                     <label className="block text-gray-700">Image</label>
