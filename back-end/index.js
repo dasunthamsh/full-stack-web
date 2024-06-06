@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
 const ProductModel = require('./models/Product');
+const UserModel = require('./models/User');
 const path = require('path');
 
 const app = express();
@@ -51,6 +52,21 @@ app.get('/product/:id', (req, res) => {
     const { id } = req.params;
     ProductModel.findById(id)
         .then(product => res.json(product))
+        .catch(err => res.status(400).json(err));
+});
+
+
+
+
+
+// sign up user (add user)
+
+app.post('/signup', upload.none(), (req, res) => {
+    const { firstName, lastName, email, password  } = req.body;
+
+
+    UserModel.create({ firstName, lastName, email, password  })
+        .then(user => res.json(user))
         .catch(err => res.status(400).json(err));
 });
 

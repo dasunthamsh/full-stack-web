@@ -3,7 +3,7 @@
 
 const mongoose = require('mongoose');
 
-const ProductSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true },
@@ -12,4 +12,4 @@ const ProductSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('User', UserSchema);
