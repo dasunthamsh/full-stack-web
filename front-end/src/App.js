@@ -7,6 +7,7 @@ import Footer from "./Components/Footer";
 import AllProducts from "./Pages/Admin/AllProducts";
 import Header from "./Components/Header";
 import ViewProduct from "./Pages/ViewProduct";
+import Signup from "./Pages/Signup";
 function App() {
   return (
     <div>
@@ -19,6 +20,7 @@ function App() {
             <Route path='/admin-dashboard' element={<Admindashboard />}></Route>
             <Route path='/products-table' element={<AllProducts />}></Route>
             <Route path="/product/:id" element={<ViewProduct/>}></Route>
+            <Route path="/signup" element={<Signup/>}></Route>
         </Routes>
           <Footer/>
       </BrowserRouter>
