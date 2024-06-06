@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import coverImage from '../Assets/cover.png'
+import coverImage from '../Assets/runImage.png'
 import {Link} from "react-router-dom";
 
 const Home = () => {
