@@ -1,23 +1,3 @@
-// const express = require('express')
-// const mongoose = require('mongoose')
-// const cors = require('cors')
-// const ProductModel = require('./models/Product')
-//
-// const app = express()
-// app.use(cors())
-// app.use(express.json())
-//
-// mongoose.connect("mongodb://localhost:27017/full-stack-db") //mongodb://127.0.0.1:27017
-//
-// app.post('/add-product', (req, res) => {
-//     ProductModel.create(req.body)
-//         .then(products => res.json(products))
-//         .catch(err => res.json(err))
-// })
-//
-// app.listen(3001,() => {
-//     console.log('Server is running on port 3001')
-// })
 
 
 const express = require('express');
@@ -49,10 +29,10 @@ const upload = multer({ storage: storage });
 // add a product
 
 app.post('/add-product', upload.single('image'), (req, res) => {
-    const { productName, price } = req.body;
+    const { productName, price, productDescription, qty, color, size, category  } = req.body;
     const imagePath = req.file ? req.file.path : null;
 
-    ProductModel.create({ productName, price, imagePath })
+    ProductModel.create({ productName, price,imagePath, productDescription, qty, color, size, category })
         .then(product => res.json(product))
         .catch(err => res.status(400).json(err));
 });
@@ -65,6 +45,14 @@ app.get('/products', (req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
+// get product by id to view single product
+
+app.get('/product/:id', (req, res) => {
+    const { id } = req.params;
+    ProductModel.findById(id)
+        .then(product => res.json(product))
+        .catch(err => res.status(400).json(err));
+});
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001');

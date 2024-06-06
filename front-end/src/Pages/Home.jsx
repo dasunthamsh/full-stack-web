@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import coverImage from '../Assets/cover.png'
+import {Link} from "react-router-dom";
 
 const Home = () => {
 
@@ -36,13 +37,13 @@ const Home = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" >
 
                     {products.map((product) => (
-
-                        <div className="bg-white p-6 rounded-lg shadow-md" key={product._id}>
-                            <img src={`http://localhost:3001/${product.imagePath}`} alt={product.productName} className="w-full h-48 object-cover rounded-md" />
-                            <h4 className="mt-2 text-xl font-semibold">{product.productName}</h4>
-                            <p className="mt-1 text-gray-600">Rs : {product.price}</p>
-                        </div>
-
+                        <Link to={`/product/${product._id}`}>
+                            <div className="bg-white p-6 rounded-lg shadow-md" key={product._id}>
+                                <img src={`http://localhost:3001/${product.imagePath}`} alt={product.productName} className="w-full h-48 object-cover rounded-md" />
+                                <h4 className="mt-2 text-xl font-semibold">{product.productName}</h4>
+                                <p className="mt-1 text-gray-600">Rs : {product.price}</p>
+                            </div>
+                        </Link>
                     ))}
 
                 </div>

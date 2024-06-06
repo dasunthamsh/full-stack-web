@@ -6,6 +6,7 @@ import AddNewProduct from "./Pages/Admin/AddNewProduct";
 import Footer from "./Components/Footer";
 import AllProducts from "./Pages/Admin/AllProducts";
 import Header from "./Components/Header";
+import ViewProduct from "./Pages/ViewProduct";
 function App() {
   return (
     <div>
@@ -17,6 +18,7 @@ function App() {
             <Route path='/add-product' element={<AddNewProduct />}></Route>
             <Route path='/admin-dashboard' element={<Admindashboard />}></Route>
             <Route path='/products-table' element={<AllProducts />}></Route>
+            <Route path="/product/:id" element={<ViewProduct/>}></Route>
         </Routes>
           <Footer/>
       </BrowserRouter>
