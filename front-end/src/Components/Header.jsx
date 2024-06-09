@@ -11,9 +11,9 @@ const Header = () => {
                 </div>
                 {/* Navigation Links */}
                 <nav className="flex space-x-6">
-                    <a href="#" className="text-gray-600 hover:text-gray-900">Home</a>
-                    <a href="#" className="text-gray-600 hover:text-gray-900">Men</a>
-                    <a href="#" className="text-gray-600 hover:text-gray-900">Women</a>
+                    <Link to="/"> <a href="#" className="text-gray-600 hover:text-gray-900">Home</a></Link>
+                    <Link to="/men"><a href="#" className="text-gray-600 hover:text-gray-900">Men</a></Link>
+                    <Link to="/women"> <a href="#" className="text-gray-600 hover:text-gray-900">Women</a></Link>
                     <a href="#" className="text-gray-600 hover:text-gray-900">Kids</a>
                 </nav>
                 {/* Login Button */}

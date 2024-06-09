@@ -57,6 +57,14 @@ app.get('/product/:id', (req, res) => {
 
 
 
+// get product by category
+
+app.get('/products/category/:men', (req, res) => {
+    const { category } = req.params;
+    ProductModel.find({ category: 'men' })
+        .then(products => res.json(products))
+        .catch(err => res.status(400).json(err));
+});
 
 
 // sign up user (add user)

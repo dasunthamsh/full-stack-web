@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import coverImage from '../Assets/runImage.png'
 import {Link} from "react-router-dom";
+import Hero from "../Components/Hero";
 
 const Home = () => {
 
@@ -16,20 +17,11 @@ const Home = () => {
     return (
         <div className="p-10">
             {/* Hero Section */}
-            <div className="relative bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg">
-                <img
-                    src={coverImage}
-                    alt="Shoes Collection"
-                    className="absolute inset-0 w-full h-full object-cover opacity-50"
-                />
-                <div className="relative p-10 md:p-20 lg:p-32 text-center">
-                    <h1 className="text-4xl md:text-6xl font-bold">Discover the Best Shoes</h1>
-                    <p className="mt-4 text-lg md:text-2xl">Quality, Comfort, and Style</p>
-                    <button className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                        Shop Now
-                    </button>
-                </div>
-            </div>
+            <Hero
+            coverImage={coverImage}
+            title="Welcome to our store discover the Best Shoes"
+            subtitle="We have the best products for you"
+            />
 
             {/* Featured Products Section */}
             <div className="mt-10">

@@ -16,14 +16,6 @@ const ProductDetail = () => {
 
     return (
         <div className="p-10">
-            {/*<h2 className="text-3xl font-semibold">{product.productName}</h2>*/}
-            {/*<img src={`http://localhost:3001/${product.imagePath}`} alt={product.productName} />*/}
-            {/*<p>Price: {product.price}</p>*/}
-            {/*<p>Description: {product.productDescription}</p>*/}
-            {/*<p>Quantity: {product.qty}</p>*/}
-            {/*<p>Color: {product.color}</p>*/}
-            {/*<p>Size: {product.size}</p>*/}
-            {/*<p>Category: {product.category}</p>*/}
 
             <div className="font-sans">
                 <div className="p-6 lg:max-w-7xl max-w-2xl mx-auto">

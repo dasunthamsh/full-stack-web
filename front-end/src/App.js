@@ -8,6 +8,8 @@ import AllProducts from "./Pages/Admin/AllProducts";
 import Header from "./Components/Header";
 import ViewProduct from "./Pages/ViewProduct";
 import Signup from "./Pages/Signup";
+import Men from "./Pages/Men";
+import Womens from "./Pages/Womens";
 function App() {
   return (
     <div>
@@ -20,7 +22,8 @@ function App() {
             <Route path='/admin-dashboard' element={<Admindashboard />}></Route>
             <Route path='/products-table' element={<AllProducts />}></Route>
             <Route path="/product/:id" element={<ViewProduct/>}></Route>
-            <Route path="/signup" element={<Signup/>}></Route>
+            <Route path="/men" element={<Men/>}></Route>
+            <Route path="/women" element={<Womens/>}></Route>
         </Routes>
           <Footer/>
       </BrowserRouter>
