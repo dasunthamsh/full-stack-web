@@ -7,7 +7,6 @@ const multer = require('multer');
 const ProductModel = require('./models/Product');
 const UserModel = require('./models/User');
 const path = require('path');
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -57,14 +56,39 @@ app.get('/product/:id', (req, res) => {
 
 
 
-// get product by category
+// get Men products by category
 
-app.get('/products/category/:men', (req, res) => {
+app.get('/products/category/men', (req, res) => {
     const { category } = req.params;
     ProductModel.find({ category: 'men' })
         .then(products => res.json(products))
         .catch(err => res.status(400).json(err));
 });
+
+// get Women products by category
+
+
+app.get('/products/category/women', (req, res) => {
+    const { category } = req.params;
+    ProductModel.find({ category: 'women' })
+        .then(products => res.json(products))
+        .catch(err => res.status(400).json(err));
+});
+
+
+// get Kids products by category
+
+app.get('/products/category/kid', (req, res) => {
+    const { category } = req.params;
+    ProductModel.find({ category: 'kid' })
+        .then(products => res.json(products))
+        .catch(err => res.status(400).json(err));
+});
+
+
+
+
+
 
 
 // sign up user (add user)
@@ -77,6 +101,24 @@ app.post('/signup', upload.none(), (req, res) => {
         .then(user => res.json(user))
         .catch(err => res.status(400).json(err));
 });
+
+
+// Login user
+app.post('/login', upload.none(), async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await UserModel.findOne({ email });
+        if (!user || user.password !== password) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        res.json({ message: 'Login successful' });
+    } catch (err) {
+        res.status(500).json({ message: 'Something went wrong', error: err.message });
+    }
+});
+
 
 app.listen(3001, () => {
     console.log('Server is running on port 3001');

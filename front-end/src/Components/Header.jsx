@@ -14,11 +14,12 @@ const Header = () => {
                     <Link to="/"> <a href="#" className="text-gray-600 hover:text-gray-900">Home</a></Link>
                     <Link to="/men"><a href="#" className="text-gray-600 hover:text-gray-900">Men</a></Link>
                     <Link to="/women"> <a href="#" className="text-gray-600 hover:text-gray-900">Women</a></Link>
-                    <a href="#" className="text-gray-600 hover:text-gray-900">Kids</a>
+                    <Link to="/kid"> <a href="#" className="text-gray-600 hover:text-gray-900">Kids</a></Link>
                 </nav>
                 {/* Login Button */}
                 <div>
-                    <Link to="/signup" className="text-gray-600 hover:text-gray-900"> Login </Link>
+                    <Link to="/signup" className="text-gray-600 hover:text-gray-900"> Signin </Link>
+                    <Link to="/login" className="text-gray-600 hover:text-gray-900 mx-2"> Login </Link>
                 </div>
             </div>
         </header>

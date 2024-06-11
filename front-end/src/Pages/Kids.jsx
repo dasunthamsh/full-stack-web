@@ -1,29 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import Hero from "../Components/Hero";
-import coverImage from "../Assets/women-banner.jpg"
+import coverImage from "../Assets/men-shoe-banner.jpg";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import kidsCoverImage from "../Assets/kids-banner.jpg"
 
-const Womens = () => {
+const Kids = () => {
 
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/products/category/women')
+        axios.get('http://localhost:3001/products/category/kid')
             .then(response => setProducts(response.data))
             .catch(err => console.log(err));
     }, []);
 
-
     return (
 
-        <div className='p-10'>
-            <Hero
-            title="Welcome to our Womens shoe store"
-            subtitle='We have the best products for you'
-            coverImage={coverImage}
-            />
 
+        <div className="p-10">
+
+            <Hero
+                coverImage={kidsCoverImage}
+                title="Welcome to our Kids shoe store"
+                subtitle="We have the best products for you"
+            />
 
             <div className="mt-10">
                 <h3 className="text-2xl font-semibold mb-4">Featured Products</h3>
@@ -41,9 +42,8 @@ const Womens = () => {
 
                 </div>
             </div>
-
         </div>
     );
 };
 
-export default Womens;
+export default Kids;

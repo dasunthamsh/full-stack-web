@@ -25,3 +25,6 @@ const Hero = ({coverImage, title, subtitle}) => {
 };
 
 export default Hero;
+
+
+
