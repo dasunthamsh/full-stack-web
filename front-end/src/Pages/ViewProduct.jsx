@@ -55,7 +55,6 @@ const ProductDetail = ({ loggedInUser }) => {
                                 <img src={`http://localhost:3001/${product.imagePath}`} alt={product.productName} className="lg:w-11/12 w-full h-full rounded-xl object-cover object-top" />
                             </div>
                         </div>
-
                         <div>
                             <div className="flex flex-wrap items-start gap-4">
                                 <div>
@@ -134,13 +133,10 @@ const ProductDetail = ({ loggedInUser }) => {
 
                             <div className="flex flex-wrap items-center gap-4 mt-8">
                                 <button type="button" onClick={handleAddToBag} className="w-full lg:w-auto px-3 py-2 bg-black text-sm text-white rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-800">
-                                    Add to bag
-                                </button>
-                                <button type="button" className="w-full lg:w-auto px-3 py-2 bg-gray-800 text-sm text-white rounded-md hover:bg-gray-900 focus:outline-none focus:bg-gray-900">
-                                    Buy it now
+                                    Add to cart
                                 </button>
                             </div>
-                            <h1>{loggedInUser}</h1>
+
                         </div>
                     </div>
                 </div>

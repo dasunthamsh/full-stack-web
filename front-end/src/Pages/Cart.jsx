@@ -73,6 +73,8 @@ const Cart = ({ loggedInUser }) => {
                     </div>
                 </div>
             )}
+
+
         </div>
     );
 };

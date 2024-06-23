@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-
+import bag from "../Assets/bag.png"
 const Header = () => {
     return (
         <header className="bg-white shadow hidden md:block  relative  ">
@@ -17,8 +17,8 @@ const Header = () => {
                     <Link to="/kid"> <a href="#" className="text-gray-600 hover:text-gray-900">Kids</a></Link>
                 </nav>
                 {/* Login Button */}
-                <div>
-                    <Link to="/cart" className="text-gray-600 hover:text-gray-900"> cart </Link>
+                <div className='flex'>
+                    <Link to="/cart" ><img width={25} src={bag}/></Link>
                     <Link to="/login" className="text-gray-600 hover:text-gray-900 mx-2"> Login </Link>
                 </div>
             </div>
