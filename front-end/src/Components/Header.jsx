@@ -18,7 +18,7 @@ const Header = () => {
                 </nav>
                 {/* Login Button */}
                 <div>
-                    {/*<Link to="/signup" className="text-gray-600 hover:text-gray-900"> Signin </Link>*/}
+                    <Link to="/cart" className="text-gray-600 hover:text-gray-900"> cart </Link>
                     <Link to="/login" className="text-gray-600 hover:text-gray-900 mx-2"> Login </Link>
                 </div>
             </div>

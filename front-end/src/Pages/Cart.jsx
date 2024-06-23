@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Cart = () => {
+const Cart = ({ loggedInUser }) => {
     // Sample data for cart items
     const [cartItems, setCartItems] = useState([
         { id: 1, name: 'Sneaker A', price: 100, quantity: 1 },
@@ -23,6 +23,7 @@ const Cart = () => {
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
+            <h1>{ loggedInUser }</h1>
             {cartItems.length === 0 ? (
                 <p>Your cart is empty</p>
             ) : (
@@ -40,12 +41,12 @@ const Cart = () => {
                         <tbody>
                         {cartItems.map(item => (
                             <tr key={item.id}>
-                                <td className="border-b p-2">{item.name}</td>
-                                <td className="border-b p-2">${item.price}</td>
+                                <td className="border-b p-2">name</td>
+                                <td className="border-b p-2">price</td>
                                 <td className="border-b p-2">
                                     <input
                                         type="number"
-                                        value={item.quantity}
+                                        value="qty"
                                         onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
                                         className="w-16 p-1 border rounded"
                                         min="1"

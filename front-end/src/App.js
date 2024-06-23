@@ -15,27 +15,34 @@ import Login from "./Pages/Login";
 import { ReactNotifications } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 import Cart from "./Pages/Cart";
+import {useState} from "react";
 function App() {
-  return (
+
+    const [loggedInUser, setLoggedInUser] = useState(null);
+    const handleLogin = (email) => {
+        setLoggedInUser(email);
+    };
+
+    return (
     <div>
         <ReactNotifications />
-      <BrowserRouter>
-          <Header/>
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/" element={<Footer />} />
-            <Route path='/add-product' element={<AddNewProduct />}></Route>
-            <Route path='/admin-dashboard' element={<Admindashboard />}></Route>
-            <Route path='/products-table' element={<AllProducts />}></Route>
-            <Route path="/product/:id" element={<ViewProduct/>}></Route>
-            <Route path="/men" element={<Men/>}></Route>
-            <Route path="/women" element={<Womens/>}></Route>
-            <Route path="/kid" element={<Kids/>}></Route>
-            <Route path="/signup" element={<Signup/>}></Route>
-            <Route path="/login" element={<Login/>}></Route>
-            <Route path="/cart" element={<Cart/>}></Route>
-        </Routes>
-          <Footer/>
+        <BrowserRouter>
+            <Header/>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Footer />} />
+                <Route path='/add-product' element={<AddNewProduct />}></Route>
+                <Route path='/admin-dashboard' element={<Admindashboard />}></Route>
+                <Route path='/products-table' element={<AllProducts />}></Route>
+                <Route path="/product/:id" element={<ViewProduct loggedInUser={loggedInUser}/>}></Route>
+                <Route path="/men" element={<Men/>}></Route>
+                <Route path="/women" element={<Womens/>}></Route>
+                <Route path="/kid" element={<Kids/>}></Route>
+                <Route path="/signup" element={<Signup/>}></Route>
+                <Route path="/login" element={<Login onLogin={handleLogin} />} />
+                <Route path="/cart" element={<Cart loggedInUser={loggedInUser} />} />
+            </Routes>
+            <Footer/>
       </BrowserRouter>
 
     </div>

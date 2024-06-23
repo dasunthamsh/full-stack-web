@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import {Store} from "react-notifications-component";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -13,6 +13,7 @@ const Login = () => {
 
         axios.post('http://localhost:3001/login', { email, password })
             .then(response => {
+                onLogin(email);
                 Store.addNotification({
                     title: "Success!",
                     message: "Login successful!",
