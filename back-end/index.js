@@ -6,6 +6,7 @@ const cors = require('cors');
 const multer = require('multer');
 const ProductModel = require('./models/Product');
 const UserModel = require('./models/User');
+const CartModel = require('./models/Cart');
 const path = require('path');
 const app = express();
 app.use(cors());
@@ -117,6 +118,35 @@ app.post('/login', upload.none(), async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: 'Something went wrong', error: err.message });
     }
+});
+
+
+
+
+
+
+
+
+// if user click add to bag add details to cart table
+
+app.post('/product/:id', upload.none(), (req, res) => {
+    const { productId, productName, price, quantity, selectedColor, selectedSize, email } = req.body;
+
+
+    CartModel.create({ productId, productName, price, quantity, selectedColor, selectedSize, email  })
+        .then(cart => res.json(cart))
+        .catch(err => res.status(400).json(err));
+});
+
+
+
+// load all the cart products to cart tables
+
+app.get('/cart/:email', (req, res) => {
+    const { email } = req.params;
+    CartModel.find({ email: email })
+        .then(products => res.json(products))
+        .catch(err => res.status(400).json(err));
 });
 
 
