@@ -1,30 +1,37 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import {useParams} from "react-router-dom";
 
 const Cart = ({ loggedInUser }) => {
     // Sample data for cart items
-    const [cartItems, setCartItems] = useState([
-        { id: 1, name: 'Sneaker A', price: 100, quantity: 1 },
-        { id: 2, name: 'Sneaker B', price: 150, quantity: 2 },
-    ]);
+
+    const [cart, setCart] = useState([]);
+    const { id } = useParams();
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/cart/${loggedInUser}`)
+            .then(response => setCart(response.data))
+            .catch(error => console.error('Error fetching products:', error));
+    }, [loggedInUser]);
+
 
     // Function to update item quantity
     const updateQuantity = (id, quantity) => {
-        setCartItems(cartItems.map(item => item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item));
+        setCart(cart.map(item => item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item));
     };
 
     // Function to remove item from cart
     const removeItem = (id) => {
-        setCartItems(cartItems.filter(item => item.id !== id));
-    };
+        setCart(cart.filter(item => item.id !== id));
+    }
 
     // Calculate total price
-    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0)
 
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
-            <h1>{ loggedInUser }</h1>
-            {cartItems.length === 0 ? (
+            {setCart.length === 0 ? (
                 <p>Your cart is empty</p>
             ) : (
                 <div>
@@ -39,20 +46,20 @@ const Cart = ({ loggedInUser }) => {
                         </tr>
                         </thead>
                         <tbody>
-                        {cartItems.map(item => (
+                        {cart.map(item => (
                             <tr key={item.id}>
-                                <td className="border-b p-2">name</td>
-                                <td className="border-b p-2">price</td>
+                                <td className="border-b p-2">{item.productName}</td>
+                                <td className="border-b p-2">Rs: {item.price}</td>
                                 <td className="border-b p-2">
                                     <input
                                         type="number"
-                                        value="qty"
+                                        value={item.quantity}
                                         onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
                                         className="w-16 p-1 border rounded"
                                         min="1"
                                     />
                                 </td>
-                                <td className="border-b p-2">${item.price * item.quantity}</td>
+                                <td className="border-b p-2">Rs: {item.price * item.quantity}</td>
                                 <td className="border-b p-2">
                                     <button onClick={() => removeItem(item.id)} className="text-red-600">Remove</button>
                                 </td>
@@ -61,7 +68,7 @@ const Cart = ({ loggedInUser }) => {
                         </tbody>
                     </table>
                     <div className="mt-4 text-right">
-                        <p className="text-xl font-bold">Total: ${totalPrice}</p>
+                        <p className="text-xl font-bold">Total: Rs: {totalPrice}</p>
                         <button className="mt-2 px-4 py-2 bg-indigo-600 text-white rounded">Checkout</button>
                     </div>
                 </div>
