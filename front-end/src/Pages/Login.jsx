@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         axios.post('http://localhost:3001/login', { email, password })
             .then(response => alert('Login successful!'))
+            navigate('/')
             .catch(error => alert('Login failed: ' + error.response.data));
     };
 
@@ -22,6 +25,7 @@ const Login = () => {
                         <div>
                             <label htmlFor="email-address" className="sr-only">Email address</label>
                             <input
+                                id='email-address'
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -33,6 +37,7 @@ const Login = () => {
                         <div>
                             <label htmlFor="password" className="sr-only">Password</label>
                             <input
+                                id='password'
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}

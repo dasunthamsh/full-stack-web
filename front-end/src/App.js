@@ -36,5 +36,6 @@ function App() {
     </div>
   );
 }
+// constants.js
 
 export default App;

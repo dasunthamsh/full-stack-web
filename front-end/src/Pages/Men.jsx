@@ -3,7 +3,7 @@ import Hero from "../Components/Hero";
 import coverImage from "../Assets/men-shoe-banner.jpg";
 import axios from "axios";
 import {Link} from "react-router-dom";
-const Men = () => {
+const Men = ({email}) => {
 
     const [products, setProducts] = useState([]);
 
@@ -23,6 +23,7 @@ const Men = () => {
             title="Welcome to our Mens shoe store"
             subtitle="We have the best products for you"
         />
+        <h2>welcome{email}</h2>
 
             <div className="mt-10">
             <h3 className="text-2xl font-semibold mb-4">Featured Products</h3>
