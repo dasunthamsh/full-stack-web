@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 const ProductDetail = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         axios.get(`http://localhost:3001/product/${id}`)
@@ -12,11 +13,17 @@ const ProductDetail = () => {
             .catch(err => console.log(err));
     }, [id]);
 
+    const handleQuantityChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (value >= 1) {
+            setQuantity(value);
+        }
+    };
+
     if (!product) return <div>Loading...</div>;
 
     return (
         <div className="p-10">
-
             <div className="font-sans">
                 <div className="p-6 lg:max-w-7xl max-w-2xl mx-auto">
                     <div className="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
@@ -38,7 +45,7 @@ const ProductDetail = () => {
 
                             <div id="priceSection" className="flex flex-wrap gap-4 items-start">
                                 <div>
-                                    <p className="text-gray-800 text-3xl font-bold">Rs: {product.price} </p>
+                                    <p className="text-gray-800 text-3xl font-bold">Rs: {product.price}</p>
                                     <p className="text-gray-400 text-xl mt-1"><strike>Rs: 42</strike> <span className="text-sm ml-1">Tax included</span></p>
                                 </div>
 
@@ -57,7 +64,6 @@ const ProductDetail = () => {
 
                             <hr className="my-8" />
 
-
                             <div>
                                 <h3 className="text-lg font-bold text-gray-800">Choose a Color</h3>
                                 <div className="flex flex-wrap gap-2 mt-4">
@@ -70,7 +76,6 @@ const ProductDetail = () => {
 
                             <hr className="my-8" />
 
-
                             <div>
                                 <h3 className="text-lg font-bold text-gray-800">Choose a Size</h3>
                                 <div className="flex flex-wrap gap-2 mt-4">
@@ -78,6 +83,23 @@ const ProductDetail = () => {
                                     <button type="button" className="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">M</button>
                                     <button type="button" className="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">L</button>
                                     <button type="button" className="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">XL</button>
+                                </div>
+                            </div>
+
+                            <hr className="my-8" />
+
+                            <div>
+                                <h3 className="text-lg font-bold text-gray-800">Quantity</h3>
+                                <div className="flex items-center gap-2 mt-4">
+                                    <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} className="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">-</button>
+                                    <input
+                                        type="number"
+                                        value={quantity}
+                                        onChange={handleQuantityChange}
+                                        className="w-16 p-2 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                                        min="1"
+                                    />
+                                    <button onClick={() => setQuantity(quantity + 1)} className="px-4 py-2 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">+</button>
                                 </div>
                             </div>
 
@@ -99,13 +121,9 @@ const ProductDetail = () => {
                     </div>
                 </div>
             </div>
-
-
         </div>
     );
 };
 
 export default ProductDetail;
-
-
 

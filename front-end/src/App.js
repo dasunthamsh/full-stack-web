@@ -12,9 +12,13 @@ import Men from "./Pages/Men";
 import Womens from "./Pages/Womens";
 import Kids from "./Pages/Kids";
 import Login from "./Pages/Login";
+import { ReactNotifications } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
+import Cart from "./Pages/Cart";
 function App() {
   return (
     <div>
+        <ReactNotifications />
       <BrowserRouter>
           <Header/>
         <Routes>
@@ -29,6 +33,7 @@ function App() {
             <Route path="/kid" element={<Kids/>}></Route>
             <Route path="/signup" element={<Signup/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
+            <Route path="/cart" element={<Cart/>}></Route>
         </Routes>
           <Footer/>
       </BrowserRouter>

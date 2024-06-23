@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import {Store} from "react-notifications-component";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -11,9 +12,33 @@ const Login = () => {
         e.preventDefault();
 
         axios.post('http://localhost:3001/login', { email, password })
-            .then(response => alert('Login successful!'))
+            .then(response => {
+                Store.addNotification({
+                    title: "Success!",
+                    message: "Login successful!",
+                    type: "success",
+                    insert: "top",
+                    container: "top-right",
+                    dismiss: {
+                        duration: 3000,
+                        onScreen: true
+                    }
+                });
             navigate('/')
-            .catch(error => alert('Login failed: ' + error.response.data));
+                })
+                .catch(error => {
+                    Store.addNotification({
+                        title: "Error!",
+                        message: `Login failed: ${error.response.data}`,
+                        type: "danger",
+                        insert: "top",
+                        container: "top-right",
+                        dismiss: {
+                            duration: 3000,
+                            onScreen: true
+                        }
+                    });
+                });
     };
 
     return (
