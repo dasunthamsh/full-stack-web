@@ -3,9 +3,9 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 
 const Cart = ({ loggedInUser }) => {
-    // Sample data for cart items
-
     const [cart, setCart] = useState([]);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [address, setAddress] = useState('');
     const { id } = useParams();
 
     useEffect(() => {
@@ -14,24 +14,43 @@ const Cart = ({ loggedInUser }) => {
             .catch(error => console.error('Error fetching products:', error));
     }, [loggedInUser]);
 
-
-    // Function to update item quantity
     const updateQuantity = (id, quantity) => {
         setCart(cart.map(item => item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item));
     };
 
-    // Function to remove item from cart
     const removeItem = (id) => {
         setCart(cart.filter(item => item.id !== id));
-    }
+    };
 
-    // Calculate total price
-    const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0)
+    const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    const checkout = () => {
+        const orderDetails = {
+            products: cart.map(item => ({
+                product: item.productName,
+                price: item.price,
+                quantity: item.quantity,
+            })),
+            email: loggedInUser,
+            phoneNumber,
+            address
+        };
+
+        axios.post('http://localhost:3001/cart', orderDetails)
+            .then(response => {
+                console.log('Order placed successfully', response.data);
+                // Clear cart and reset form if needed
+                setCart([]);
+                setPhoneNumber('');
+                setAddress('');
+            })
+            .catch(error => console.error('Error placing order:', error));
+    };
 
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
-            {setCart.length === 0 ? (
+            {cart.length === 0 ? (
                 <p>Your cart is empty</p>
             ) : (
                 <div>
@@ -67,14 +86,34 @@ const Cart = ({ loggedInUser }) => {
                         ))}
                         </tbody>
                     </table>
-                    <div className="mt-4 text-right">
-                        <p className="text-xl font-bold">Total: Rs: {totalPrice}</p>
-                        <button className="mt-2 px-4 py-2 bg-indigo-600 text-white rounded">Checkout</button>
+
+                    <div className="mt-4">
+                        <div className="mb-4">
+                            <label className="block mb-2">Phone Number:</label>
+                            <input
+                                type="text"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                className="w-full p-2 border rounded"
+                                placeholder="Enter your phone number"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="block mb-2">Address:</label>
+                            <textarea
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                className="w-full p-2 border rounded"
+                                placeholder="Enter your address"
+                            />
+                        </div>
+                        <div className="text-right">
+                            <p className="text-xl font-bold">Total: Rs: {totalPrice}</p>
+                            <button onClick={checkout} className="mt-2 px-4 py-2 bg-indigo-600 text-white rounded">Checkout</button>
+                        </div>
                     </div>
                 </div>
             )}
-
-
         </div>
     );
 };

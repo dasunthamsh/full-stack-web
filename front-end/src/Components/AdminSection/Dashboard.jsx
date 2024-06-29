@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
 
 const Dashboard = () => {
+    const [orders, setOrders] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetchOrders();
+    }, []);
+
+    const fetchOrders = () => {
+        axios.get(`http://localhost:3001/admin-dashboard`)
+            .then(response => setOrders(response.data))
+            .catch(error => {
+                console.error('Error fetching orders:', error);
+                setError('Failed to fetch orders. Please try again later.');
+            });
+    };
+
     return (
         <div className="flex-1 p-10">
             <h2 className="text-3xl font-semibold">Dashboard</h2>
@@ -26,35 +43,43 @@ const Dashboard = () => {
             </div>
 
             {/* Table Section */}
-            <div className="mt-10">
-                <h3 className="text-2xl font-semibold mb-4">Recent Orders</h3>
-                <div className="bg-white shadow-md rounded-lg overflow-x-auto">
-                    <table className="min-w-full bg-white">
-                        <thead className="bg-gray-800 text-white">
-                        <tr>
-                            <th className="w-1/3 py-3 px-4 uppercase font-semibold text-sm">Order ID</th>
-                            <th className="w-1/3 py-3 px-4 uppercase font-semibold text-sm">Customer</th>
-                            <th className="w-1/3 py-3 px-4 uppercase font-semibold text-sm">Total</th>
-                            <th className="w-1/3 py-3 px-4 uppercase font-semibold text-sm">Status</th>
-                        </tr>
-                        </thead>
-                        <tbody className="text-gray-700">
-                        <tr>
-                            <td className="w-1/3 py-3 px-4">12345</td>
-                            <td className="w-1/3 py-3 px-4">John Doe</td>
-                            <td className="w-1/3 py-3 px-4">$250</td>
-                            <td className="w-1/3 py-3 px-4">Completed</td>
-                        </tr>
-                        <tr>
-                            <td className="w-1/3 py-3 px-4">12346</td>
-                            <td className="w-1/3 py-3 px-4">Jane Smith</td>
-                            <td className="w-1/3 py-3 px-4">$150</td>
-                            <td className="w-1/3 py-3 px-4">Pending</td>
-                        </tr>
-                        {/* Add more rows as needed */}
-                        </tbody>
-                    </table>
-                </div>
+            <div className="container mx-auto p-4">
+                <h1 className="text-3xl font-bold mb-8 text-center">Order History</h1>
+                {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+                {orders.length === 0 ? (
+                    <p className="text-xl text-gray-600 text-center">No orders found.</p>
+                ) : (
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full bg-white border-collapse overflow-hidden shadow-sm rounded-md">
+                            <thead className="bg-gray-800 text-white">
+                            <tr>
+                                <th className="py-3 px-6 text-left">Email</th>
+                                <th className="py-3 px-6 text-left">Phone Number</th>
+                                <th className="py-3 px-6 text-left">Address</th>
+                                <th className="py-3 px-6 text-left">Total Price</th>
+                                <th className="py-3 px-6 text-left">Order Date</th>
+                                <th className="py-3 px-6 text-left">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                            {orders.map(order => (
+                                <tr key={order._id}>
+                                    <td className="py-4 px-6">{order.email}</td>
+                                    <td className="py-4 px-6">{order.phoneNumber}</td>
+                                    <td className="py-4 px-6">{order.address}</td>
+                                    <td className="py-4 px-6">Rs {order.totalPrice}</td>
+                                    <td className="py-4 px-6">{new Date(order.orderDate).toLocaleDateString()}</td>
+                                    <td className="py-4 px-6">
+                                        <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                            View Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
         </div>
     );

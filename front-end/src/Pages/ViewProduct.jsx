@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import {Store} from "react-notifications-component";
 
 const ProductDetail = ({ loggedInUser }) => {
     const { id } = useParams();
@@ -35,6 +36,17 @@ const ProductDetail = ({ loggedInUser }) => {
         axios.post(`http://localhost:3001/product/${id}`, formData)
             .then(response => {
                 console.log('Product added to cart:', response.data);
+                Store.addNotification({
+                    title: "Success!",
+                    message: "Login successful!",
+                    type: "success",
+                    insert: "top",
+                    container: "top-right",
+                    dismiss: {
+                        duration: 3000,
+                        onScreen: true
+                    }
+                });
                 // Optionally, you can reset form fields or show a success message
             })
             .catch(error => {

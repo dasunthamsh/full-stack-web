@@ -13,6 +13,8 @@ const Home = () => {
             .then(response => setProducts(response.data))
             .catch(error => console.error('Error fetching products:', error));
     }, []);
+    // if we use [] rub only once after the initial render
+    // if we use [id] triggers when state changes
 
     return (
         <div className="p-10">

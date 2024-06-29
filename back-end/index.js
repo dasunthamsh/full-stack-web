@@ -7,6 +7,7 @@ const multer = require('multer');
 const ProductModel = require('./models/Product');
 const UserModel = require('./models/User');
 const CartModel = require('./models/Cart');
+const OrderModel = require('./models/Order');
 const path = require('path');
 const app = express();
 app.use(cors());
@@ -147,6 +148,46 @@ app.get('/cart/:email', (req, res) => {
     CartModel.find({ email: email })
         .then(products => res.json(products))
         .catch(err => res.status(400).json(err));
+});
+
+
+
+
+
+
+
+
+// save orders to database
+
+app.post('/cart', async (req, res) => {
+    const orderDetails = req.body;
+    const order = new OrderModel({
+        products: orderDetails.products,
+        email: orderDetails.email,
+        phoneNumber: orderDetails.phoneNumber,
+        address: orderDetails.address,
+        totalPrice: orderDetails.products.reduce((total, item) => total + item.price * item.quantity, 0)
+    });
+
+    try {
+        const newOrder = await order.save();
+        // Clear the user's cart after checkout
+        await CartModel.deleteMany({ userEmail: orderDetails.email });
+        res.status(201).json(newOrder);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+
+// Route to get all orders
+app.get('/admin-dashboard', async (req, res) => {
+    try {
+        const orders = await OrderModel.find().sort({ orderDate: -1 });
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 

@@ -15,9 +15,6 @@ const Sidebar = () => {
                     <Link to="/products-table">Products</Link>
                 </li>
                 <li className="p-4 hover:bg-gray-700">
-                    <Link to="/orders">Orders</Link>
-                </li>
-                <li className="p-4 hover:bg-gray-700">
                     <Link to="/add-product">Add Product</Link>
                 </li>
                 <li className="p-4 hover:bg-gray-700">
