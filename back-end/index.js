@@ -166,7 +166,8 @@ app.post('/cart', async (req, res) => {
         email: orderDetails.email,
         phoneNumber: orderDetails.phoneNumber,
         address: orderDetails.address,
-        totalPrice: orderDetails.products.reduce((total, item) => total + item.price * item.quantity, 0)
+        totalPrice: orderDetails.products.reduce((total, item) => total + item.price * item.quantity, 0),
+        status:'null'
     });
 
     try {

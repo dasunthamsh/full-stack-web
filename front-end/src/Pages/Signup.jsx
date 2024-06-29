@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
+import {Store} from "react-notifications-component";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
 
@@ -7,6 +9,7 @@ const Signup = () => {
     const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const navigate = useNavigate();
 
     const handleSubmit =  (e) => {
         e.preventDefault();
@@ -21,8 +24,33 @@ const Signup = () => {
                'Content-Type':'multipart/form-data'
            }
        })
-           .then(result =>  alert(result+"account created"))
-           .catch(err => alert(err+"something went wrong"));
+           .then(result => {
+               Store.addNotification({
+                   title: "Success!",
+                   message: "Login successful!",
+                   type: "success",
+                   insert: "top",
+                   container: "top-right",
+                   dismiss: {
+                       duration: 3000,
+                       onScreen: true
+                   }
+               });
+               navigate('/login')
+           })
+           .catch(error => {
+               Store.addNotification({
+                   title: "Error!",
+                   message: `Login failed: ${error.response.data}`,
+                   type: "danger",
+                   insert: "top",
+                   container: "top-right",
+                   dismiss: {
+                       duration: 3000,
+                       onScreen: true
+                   }
+               });
+           });
     };
 
     return (

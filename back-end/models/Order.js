@@ -12,7 +12,9 @@ const OrderSchema = new mongoose.Schema({
     phoneNumber: String,
     address: String,
     totalPrice: Number,
-    orderDate: { type: Date, default: Date.now }
+    orderDate: { type: Date, default: Date.now },
+    status: String
+
 });
 
 const Order = mongoose.model('Order', OrderSchema);

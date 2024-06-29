@@ -71,7 +71,7 @@ const Dashboard = () => {
                                     <td className="py-4 px-6">{new Date(order.orderDate).toLocaleDateString()}</td>
                                     <td className="py-4 px-6">
                                         <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                            View Details
+                                            shiped
                                         </button>
                                     </td>
                                 </tr>
